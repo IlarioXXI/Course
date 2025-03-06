@@ -1,4 +1,4 @@
-using CourseWeb.Models;
+using Course.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

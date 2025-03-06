@@ -26,6 +26,7 @@ namespace CourseRazorWeb_Temp.Pages.Categories
             }
             _db.Categories.Remove(objCategory);
             _db.SaveChanges();
+            TempData["Success"] = "Category deleted successfully";
             return RedirectToPage("Index");
         }
         public void OnGet(int? id)

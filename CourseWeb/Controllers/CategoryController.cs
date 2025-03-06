@@ -1,7 +1,8 @@
-﻿using CourseWeb.Models;
-using CourseWeb.NewFolder;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using Course.Models;
+using Course.DataAccess.Data;
 
 namespace CourseWeb.Controllers
 {

@@ -1,7 +1,7 @@
-﻿using CourseWeb.Models;
+﻿using Course.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CourseWeb.NewFolder
+namespace Course.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {

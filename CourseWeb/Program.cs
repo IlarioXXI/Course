@@ -1,4 +1,4 @@
-using CourseWeb.NewFolder;
+using Course.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

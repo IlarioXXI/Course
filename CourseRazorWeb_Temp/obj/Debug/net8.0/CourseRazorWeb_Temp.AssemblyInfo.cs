@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CourseRazorWeb_Temp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b4fdd54cd8079713b45468c75b6010e8f12718d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c3ca0ed44e997f1b96bb4e9e752ff4a880cd2bf8")]
 [assembly: System.Reflection.AssemblyProductAttribute("CourseRazorWeb_Temp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CourseRazorWeb_Temp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

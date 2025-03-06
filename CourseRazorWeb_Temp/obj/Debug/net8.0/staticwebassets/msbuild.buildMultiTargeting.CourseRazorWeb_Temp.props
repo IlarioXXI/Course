@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\CourseRazorWeb_Temp.props" />
+</Project>

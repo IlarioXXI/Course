@@ -1,6 +1,7 @@
 ﻿using Course.DataAccess.Repository.IRepository;
 using Course.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text;
 
 namespace CourseWeb.Areas.Admin.Controllers
@@ -16,11 +17,21 @@ namespace CourseWeb.Areas.Admin.Controllers
         public IActionResult Index()
         {
             List<Product> objProductList = _unityOfWork.Product.GetAll().ToList();
+            
             return View(objProductList);
         }
 
         public IActionResult Create()
         {
+            IEnumerable<SelectListItem> CategoryList = _unityOfWork.Category.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+
+            //si può assegnare un nome casuale a categoryList dopo ViewBag. e indica la chiave e il CategoryList dopo = indica il valore
+            ViewBag.CategoryList = CategoryList;
+
             return View();
         }
         [HttpPost]

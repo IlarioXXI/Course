@@ -1,6 +1,7 @@
 ﻿using Course.DataAccess.Repository.IRepository;
 using Course.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace CourseWeb.Areas.Admin.Controllers
 {
@@ -33,7 +34,11 @@ namespace CourseWeb.Areas.Admin.Controllers
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+                ModelState.AddModelError("name", "Something was wrong.");
+            }
+                return View();
         }
         public IActionResult Edit(int? id)
         {

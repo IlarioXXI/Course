@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Course.DataAccess.Repository.IRepository
 {
-    public interface ICategoryRepository : IRepository<Category>d
+    public interface ICategoryRepository : IRepository<Category>
     {
         void Update(Category obj);
         void Save();

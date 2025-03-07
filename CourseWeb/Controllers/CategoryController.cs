@@ -3,19 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Course.Models;
 using Course.DataAccess.Data;
+using Course.DataAccess.Repository.IRepository;
 
 namespace CourseWeb.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db)
+        private readonly ICategoryRepository _categoryRepository;
+        public CategoryController(ICategoryRepository db)
         {
-            _db = db;
+            _categoryRepository = db;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _db.Categories.ToList();
+            List<Category> objCategoryList = _categoryRepository.GetAll().ToList();
             return View(objCategoryList);
         }
 
@@ -33,8 +34,8 @@ namespace CourseWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+                _categoryRepository.Add(obj);
+                _categoryRepository.Save();
                 TempData["success"] = "Category created successfully"; 
                 return RedirectToAction("Index");
             }
@@ -46,7 +47,7 @@ namespace CourseWeb.Controllers
             {
                 return NotFound();
             }
-            Category? objCategory = _db.Categories.Find(id);
+            Category? objCategory = _categoryRepository.Get(u => u.Id == id);
             //Category? objCategory1 = _db.Categories.FirstOrDefault(u=>u.Id == id);
             //Category? objCategory2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
 
@@ -61,8 +62,8 @@ namespace CourseWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+                _categoryRepository.Update(obj);
+                _categoryRepository.Save();
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
             }
@@ -75,7 +76,7 @@ namespace CourseWeb.Controllers
             {
                 return NotFound();
             }
-            Category? objCategory = _db.Categories.Find(id);
+            Category? objCategory = _categoryRepository.Get(u => u.Id == id);
 
             if (objCategory == null)
             {
@@ -86,13 +87,13 @@ namespace CourseWeb.Controllers
         [HttpPost,ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? obj = _db.Categories.Find(id);
+            Category? obj = _categoryRepository.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();
+            _categoryRepository.Remove(obj);
+            _categoryRepository.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
         }

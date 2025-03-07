@@ -17,7 +17,7 @@ namespace Course.Models
         public string Title { get; set; }
         public string Description { get; set; }
         [Required]
-        public string ISNB { get; set; }
+        public string ISBN { get; set; }
         [Required]
         public string Author { get; set; }
 

@@ -6,8 +6,9 @@ using Course.DataAccess.Data;
 using Course.DataAccess.Repository.IRepository;
 using Course.DataAccess.Repository;
 
-namespace CourseWeb.Controllers
+namespace CourseWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unityOfWork;

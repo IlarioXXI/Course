@@ -5,15 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text;
 
-namespace CourseWeb.Areas.Admin.Views
+namespace CourseWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unityOfWork;
-        public ProductController(IUnitOfWork unityOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public ProductController(IUnitOfWork unityOfWork,IWebHostEnvironment webHostEnvironment)
         {
             _unityOfWork = unityOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -22,7 +24,8 @@ namespace CourseWeb.Areas.Admin.Views
             return View(objProductList);
         }
 
-        public IActionResult Create()
+        //nell' upsert possiamo avere un id (nel caso dell'update), ma possiamo anche non averlo (nel caso dell' insert)
+        public IActionResult Upsert(int? id)
         {
             //IEnumerable<SelectListItem> CategoryList = _unityOfWork.Category.GetAll().Select(u => new SelectListItem
             //{
@@ -45,16 +48,63 @@ namespace CourseWeb.Areas.Admin.Views
                 Product = new Product()
             };
 
+            if(id == null || id == 0)
+            {
                 return View(productVM);
+            }
+            else
+            {
+                //update
+                productVM.Product = _unityOfWork.Product.Get(u => u.Id == id);
+                return View(productVM);
+            }
+
+                
         }
         [HttpPost]
-        public IActionResult Create(ProductVM productVM)
+        public IActionResult Upsert(ProductVM productVM, IFormFile? file)
         {
+
 
             if (ModelState.IsValid)
             {
-                _unityOfWork.Product.Add(productVM.Product);
-                _unityOfWork.Save();
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                    //qui l'immagine avra un identificativo random (GUID) e si aggiunmgerà la stessa estenzione del file di partenza
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    //dove lochiamo l'immagine
+                    string productpath = Path.Combine(wwwRootPath, @"images\product");
+
+                    if (!string.IsNullOrEmpty(productVM.Product.ImageUrl))
+                    {
+                        //delete the old image
+                        var oldImagePath = Path.Combine(wwwRootPath,productVM.Product.ImageUrl.TrimStart('\\'));
+
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
+                    using (var fileStream = new FileStream(Path.Combine(productpath, fileName),FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    productVM.Product.ImageUrl = @"\images\product\" + fileName;
+                }
+                
+                if(productVM.Product.Id==0)
+                {
+                    _unityOfWork.Product.Add(productVM.Product);
+
+                }
+                else
+                {
+                    _unityOfWork.Product.Update(productVM.Product);
+                }
+                    _unityOfWork.Save();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
             }
@@ -68,34 +118,7 @@ namespace CourseWeb.Areas.Admin.Views
                 return View(productVM);
             }
         }
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            Product? objProduct = _unityOfWork.Product.Get(u => u.Id == id);
-            //Category? objCategory1 = _db.Categories.FirstOrDefault(u=>u.Id == id);
-            //Category? objCategory2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
-
-            if (objProduct == null)
-            {
-                return NotFound();
-            }
-            return View(objProduct);
-        }
-        [HttpPost]
-        public IActionResult Edit(Product obj)
-        {
-            if (ModelState.IsValid)
-            {
-                _unityOfWork.Product.Update(obj);
-                _unityOfWork.Save();
-                TempData["success"] = "Product updated successfully";
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
+       
 
         public IActionResult Delete(int? id)
         {

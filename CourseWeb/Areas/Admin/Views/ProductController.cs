@@ -1,10 +1,11 @@
 ﻿using Course.DataAccess.Repository.IRepository;
 using Course.Models;
+using Course.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text;
 
-namespace CourseWeb.Areas.Admin.Controllers
+namespace CourseWeb.Areas.Admin.Views
 {
     [Area("Admin")]
     public class ProductController : Controller
@@ -23,33 +24,49 @@ namespace CourseWeb.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            IEnumerable<SelectListItem> CategoryList = _unityOfWork.Category.GetAll().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
+            //IEnumerable<SelectListItem> CategoryList = _unityOfWork.Category.GetAll().Select(u => new SelectListItem
+            //{
+            //    Text = u.Name,
+            //    Value = u.Id.ToString()
+            //});
 
             //si può assegnare un nome casuale a categoryList dopo ViewBag. e indica la chiave e il CategoryList dopo = indica il valore
-            ViewBag.CategoryList = CategoryList;
+            //ViewBag.CategoryList = CategoryList;
 
-            return View();
+            //ViewData["CategoryList"] = CategoryList;
+
+            ProductVM productVM = new()
+            {
+                CategoryList = _unityOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                Product = new Product()
+            };
+
+                return View(productVM);
         }
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public IActionResult Create(ProductVM productVM)
         {
 
             if (ModelState.IsValid)
             {
-                _unityOfWork.Product.Add(obj);
+                _unityOfWork.Product.Add(productVM.Product);
                 _unityOfWork.Save();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
             }
             else
             {
-                ModelState.AddModelError("name", "Something was wrong.");
+                productVM.CategoryList = _unityOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                });
+                return View(productVM);
             }
-                return View();
         }
         public IActionResult Edit(int? id)
         {

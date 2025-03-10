@@ -26,6 +26,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Course.DataAccess\Course.DataAccess.csproj" />
     <ProjectReference Include="..\Course.Models\Course.Models.csproj" />
+    <ProjectReference Include="..\Course.Utility\Course.Utility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\product\" />
   </ItemGroup>
 
 </Project>

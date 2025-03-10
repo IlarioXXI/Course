@@ -1,10 +1,7 @@
 ﻿
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
-using Course.Models;
-using Course.DataAccess.Data;
 using Course.DataAccess.Repository.IRepository;
-using Course.DataAccess.Repository;
+using Course.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CourseWeb.Areas.Admin.Controllers
 {

@@ -1617,7 +1617,10 @@
         },
         "runtime": {
           "bin/placeholder/Course.Models.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "Course.Utility/1.0.0": {
         "type": "project",

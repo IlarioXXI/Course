@@ -98,14 +98,15 @@ namespace CourseWeb.Areas.Admin.Controllers
                 if(productVM.Product.Id==0)
                 {
                     _unityOfWork.Product.Add(productVM.Product);
-
+                    TempData["success"] = "Product created successfully";
                 }
                 else
                 {
                     _unityOfWork.Product.Update(productVM.Product);
+                    TempData["success"] = "Product updated successfully";
                 }
                     _unityOfWork.Save();
-                TempData["success"] = "Product created successfully";
+                
                 return RedirectToAction("Index");
             }
             else
@@ -158,7 +159,7 @@ namespace CourseWeb.Areas.Admin.Controllers
             List<Product> objProductList = _unityOfWork.Product.GetAll(includeProperties: "Category").ToList();
             return Json(new {data = objProductList});
         }
-
+        [HttpDelete]
        public IActionResult Delete(int? id)
         {
             var productToBeDeleted = _unityOfWork.Product.Get(u => u.Id == id);

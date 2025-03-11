@@ -1,5 +1,6 @@
 using Course.DataAccess.Repository.IRepository;
 using Course.Models;
+using Course.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

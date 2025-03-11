@@ -18,3 +18,23 @@ C:\Users\A291\Desktop\.NET 8 NEW Course\Course\Course\Course.DataAccess\obj\Debu
 C:\Users\A291\Desktop\.NET 8 NEW Course\Course\Course\Course.DataAccess\obj\Debug\net8.0\Course.DataAccess.pdb
 C:\Users\A291\Desktop\.NET 8 NEW Course\Course\Course\Course.DataAccess\obj\Debug\net8.0\Course.DataAccess.genruntimeconfig.cache
 C:\Users\A291\Desktop\.NET 8 NEW Course\Course\Course\Course.DataAccess\obj\Debug\net8.0\ref\Course.DataAccess.dll
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\bin\Debug\net8.0\Course.DataAccess.deps.json
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\bin\Debug\net8.0\Course.DataAccess.runtimeconfig.json
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\bin\Debug\net8.0\Course.DataAccess.dll
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\bin\Debug\net8.0\Course.DataAccess.pdb
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\bin\Debug\net8.0\Course.Models.dll
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\bin\Debug\net8.0\Course.Utility.dll
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\bin\Debug\net8.0\Course.Models.pdb
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\bin\Debug\net8.0\Course.Utility.pdb
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\obj\Debug\net8.0\Course.DataAccess.csproj.AssemblyReference.cache
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\obj\Debug\net8.0\Course.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\obj\Debug\net8.0\Course.DataAccess.AssemblyInfoInputs.cache
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\obj\Debug\net8.0\Course.DataAccess.AssemblyInfo.cs
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\obj\Debug\net8.0\Course.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\obj\Debug\net8.0\Course.DataAccess.sourcelink.json
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\obj\Debug\net8.0\Course.D.734440F0.Up2Date
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\obj\Debug\net8.0\Course.DataAccess.dll
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\obj\Debug\net8.0\refint\Course.DataAccess.dll
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\obj\Debug\net8.0\Course.DataAccess.pdb
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\obj\Debug\net8.0\Course.DataAccess.genruntimeconfig.cache
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.DataAccess\obj\Debug\net8.0\ref\Course.DataAccess.dll

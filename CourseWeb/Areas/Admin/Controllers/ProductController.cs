@@ -1,6 +1,8 @@
 ﻿using Course.DataAccess.Repository.IRepository;
 using Course.Models;
 using Course.Models.ViewModels;
+using Course.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text;
@@ -8,6 +10,8 @@ using System.Text;
 namespace CourseWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
+
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unityOfWork;

@@ -22,3 +22,4 @@ C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.Utili
 C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.Utility\obj\Debug\net8.0\refint\Course.Utility.dll
 C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.Utility\obj\Debug\net8.0\Course.Utility.pdb
 C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.Utility\obj\Debug\net8.0\ref\Course.Utility.dll
+C:\Users\idonghia\OneDrive - NTT DATA EMEAL\Documenti\GitHub\Course\Course.Utility\obj\Debug\net8.0\Course.Utility.csproj.AssemblyReference.cache

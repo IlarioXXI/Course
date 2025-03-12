@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Course.Utility
 {
-    class SD
+    public class SD
     {
+        public const string Role_Customer = "Customer";
+        public const string Role_Copany = "Company";
+        public const string Role_Admin = "Admin";
+        public const string Role_Employee = "Employee";
     }
 }

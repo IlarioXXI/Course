@@ -1,11 +1,14 @@
 ﻿
 using Course.DataAccess.Repository.IRepository;
 using Course.Models;
+using Course.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CourseWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unityOfWork;

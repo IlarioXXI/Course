@@ -49,13 +49,14 @@ namespace CourseWeb.Areas.Customer.Controllers
             {
                 //shoppng cart exists
                 cartFromDb.Count += shoppingCart.Count;
-                _unityOfWork.ShoppingCart.Update(cartFromDb);
+                  _unityOfWork.ShoppingCart.Update(cartFromDb);
             }
             else
             {
                 //add cart
                 _unityOfWork.ShoppingCart.Add(shoppingCart);
             }
+            TempData["success"] = "Cart updated successfully";
             _unityOfWork.Save();
 
             //è la stessa cosa di scrivere       return RedirectToAction("Index");

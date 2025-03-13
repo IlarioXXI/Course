@@ -1,8 +1,10 @@
 using Course.DataAccess.Repository.IRepository;
 using Course.Models;
 using Course.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace CourseWeb.Areas.Customer.Controllers
 {
@@ -25,8 +27,40 @@ namespace CourseWeb.Areas.Customer.Controllers
         }
         public IActionResult Details(int productId)
         {
-            Product product = _unityOfWork.Product.Get(u => u.Id == productId, includeProperties:"Category");
-            return View(product);
+            ShoppingCart cart = new()
+            {
+                Product = _unityOfWork.Product.Get(u => u.Id == productId, includeProperties: "Category"),
+                Count = 1,
+                ProductId = productId
+            };
+            return View(cart);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Details(ShoppingCart shoppingCart)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            shoppingCart.ApplicationUserId = userId;
+
+            ShoppingCart cartFromDb = _unityOfWork.ShoppingCart.Get(u => u.ApplicationUserId == userId && u.ProductId == shoppingCart.ProductId);
+            if(cartFromDb!=null)
+            {
+                //shoppng cart exists
+                cartFromDb.Count += shoppingCart.Count;
+                  _unityOfWork.ShoppingCart.Update(cartFromDb);
+            }
+            else
+            {
+                //add cart
+                _unityOfWork.ShoppingCart.Add(shoppingCart);
+            }
+            TempData["success"] = "Cart updated successfully";
+            _unityOfWork.Save();
+
+            //è la stessa cosa di scrivere       return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()

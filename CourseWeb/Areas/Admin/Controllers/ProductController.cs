@@ -11,7 +11,6 @@ namespace CourseWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = SD.Role_Admin)]
-
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unityOfWork;
@@ -169,7 +168,7 @@ namespace CourseWeb.Areas.Admin.Controllers
             var productToBeDeleted = _unityOfWork.Product.Get(u => u.Id == id);
             if (productToBeDeleted == null)
             {
-                return Json(new { success = false, massage = "Error while deleting" });
+                return Json(new { success = false, message = "Error while deleting" });
             }
             var oldImagePath = 
                 Path.Combine(_webHostEnvironment.WebRootPath, 

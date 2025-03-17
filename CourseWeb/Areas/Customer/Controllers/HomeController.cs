@@ -1,7 +1,9 @@
 using Course.DataAccess.Repository.IRepository;
 using Course.Models;
 using Course.Models.ViewModels;
+using Course.Utility;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -22,6 +24,15 @@ namespace CourseWeb.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (claim != null)
+            {
+                HttpContext.Session.SetInt32(SD.SessionCart,
+                    _unityOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).Count());
+            }
+
             IEnumerable<Product> productList = _unityOfWork.Product.GetAll(includeProperties: "Category");
             return View(productList);
         }
@@ -50,14 +61,17 @@ namespace CourseWeb.Areas.Customer.Controllers
                 //shoppng cart exists
                 cartFromDb.Count += shoppingCart.Count;
                   _unityOfWork.ShoppingCart.Update(cartFromDb);
+                _unityOfWork.Save();
             }
             else
             {
                 //add cart
                 _unityOfWork.ShoppingCart.Add(shoppingCart);
+                _unityOfWork.Save();
+                HttpContext.Session.SetInt32(SD.SessionCart,
+                    _unityOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId).Count());
             }
             TempData["success"] = "Cart updated successfully";
-            _unityOfWork.Save();
 
             //è la stessa cosa di scrivere       return RedirectToAction("Index");
             return RedirectToAction(nameof(Index));

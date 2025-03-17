@@ -26,6 +26,19 @@ builder.Services.ConfigureApplicationCookie(options => {
     options.LoginPath = $"/Identity/Account/AccessDenied";
 });
 
+//aggiunge la memoryCache
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    //se l'utente non fa nulla per 100 minuti la sessione scade
+    options.IdleTimeout = TimeSpan.FromMinutes(100);
+    //HttpOnly è un flag che indica che il cookie non può essere letto da javascript quindi è più sicuro
+    options.Cookie.HttpOnly = true;
+    //anche se l'utente non accetta i cookie non essenziali la sessione funziona
+    options.Cookie.IsEssential = true;
+});
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
@@ -48,6 +61,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
+app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");

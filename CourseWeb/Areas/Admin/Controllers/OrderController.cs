@@ -16,7 +16,6 @@ namespace CourseWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize]
-  
     public class OrderController : Controller
     {
 

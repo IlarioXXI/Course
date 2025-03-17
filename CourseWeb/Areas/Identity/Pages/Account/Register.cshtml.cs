@@ -184,6 +184,8 @@ namespace CourseWeb.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, SD.Role_Customer);
+
                     _logger.LogInformation("User created a new account with password.");
 
                     if (!String.IsNullOrEmpty(Input.Role))
@@ -213,7 +215,14 @@ namespace CourseWeb.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        if(User.IsInRole(SD.Role_Admin))
+                        {
+                            TempData["success"] = "New user created successfully!";
+                        }
+                        else 
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                        }
                         return LocalRedirect(returnUrl);
                     }
                 }

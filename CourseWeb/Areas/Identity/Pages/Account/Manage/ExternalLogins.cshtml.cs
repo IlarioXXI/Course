@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -111,6 +112,7 @@ namespace CourseWeb.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetLinkLoginCallbackAsync()
         {
+            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -124,8 +126,8 @@ namespace CourseWeb.Areas.Identity.Pages.Account.Manage
                 throw new InvalidOperationException($"Unexpected error occurred loading external login info.");
             }
 
-            var result = await _userManager.AddLoginAsync(user, info);
-            if (!result.Succeeded)
+            var result1 = await _userManager.AddLoginAsync(user, info);
+            if (!result1.Succeeded)
             {
                 StatusMessage = "The external login was not added. External logins can only be associated with one account.";
                 return RedirectToPage();

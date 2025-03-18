@@ -47,10 +47,10 @@ namespace Course.Models
         [ForeignKey("CategoryId")]
         [ValidateNever]
         public Category Category { get; set; }
-        [ValidateNever]
-        public string? ImageUrl { get; set; }
 
-        public int TetsProperty { get; set; }
+        [ValidateNever]
+        public List<ProductImage> ProductImageList { get; set; }
+
 
     }
 }

@@ -15,6 +15,7 @@ namespace Course.DataAccess.Repository.IRepository
         ICompanyRepository Company { get; }
         IOrderDetailRepository OrderDetail { get; }
         IOrderHeaderRepository OrderHeader { get; }
+        IProductImageRepository ProductImage { get; }
         void Save();
     }
 }

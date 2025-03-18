@@ -50,5 +50,7 @@ namespace Course.Models
         [ValidateNever]
         public string? ImageUrl { get; set; }
 
+        public int TetsProperty { get; set; }
+
     }
 }

@@ -33,14 +33,14 @@ namespace CourseWeb.Areas.Customer.Controllers
                     _unityOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).Count());
             }
 
-            IEnumerable<Product> productList = _unityOfWork.Product.GetAll(includeProperties: "Category");
+            IEnumerable<Product> productList = _unityOfWork.Product.GetAll(includeProperties: "Category,ProductImages");
             return View(productList);
         }
         public IActionResult Details(int productId)
         {
             ShoppingCart cart = new()
             {
-                Product = _unityOfWork.Product.Get(u => u.Id == productId, includeProperties: "Category"),
+                Product = _unityOfWork.Product.Get(u => u.Id == productId, includeProperties: "Category,ProductImages"),
                 Count = 1,
                 ProductId = productId
             };

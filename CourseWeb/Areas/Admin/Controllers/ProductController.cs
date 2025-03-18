@@ -57,8 +57,8 @@ namespace CourseWeb.Areas.Admin.Controllers
             }
             else
             {
-                //update
-                productVM.Product = _unityOfWork.Product.Get(u => u.Id == id);
+                //update (includeProperties deve matchare la prop in dbcontext)
+                productVM.Product = _unityOfWork.Product.Get(u => u.Id == id, includeProperties: "ProductImages");
                 return View(productVM);
             }
 
@@ -112,12 +112,12 @@ namespace CourseWeb.Areas.Admin.Controllers
                             ProductId = productVM.Product.Id
                         };
 
-                        if (productVM.Product.ProductImageList==null)
+                        if (productVM.Product.ProductImages == null)
                         {
-                            productVM.Product.ProductImageList = new List<ProductImage>();
+                            productVM.Product.ProductImages = new List<ProductImage>();
                         }
 
-                        productVM.Product.ProductImageList.Add(productImage);
+                        productVM.Product.ProductImages.Add(productImage);
                         
 
                     }
@@ -194,6 +194,34 @@ namespace CourseWeb.Areas.Admin.Controllers
         //    return RedirectToAction("Index");
         //}
 
+
+        public IActionResult DeleteImage(int imageId)
+        {
+            var imageToBeDeleted = _unityOfWork.ProductImage.Get(u=>u.Id == imageId);
+            int productId = imageToBeDeleted.ProductId;
+            if (imageToBeDeleted != null)
+            {
+                if (!string.IsNullOrEmpty(imageToBeDeleted.ImageUrl))
+                {
+                    var oldImagePath =
+                        Path.Combine(_webHostEnvironment.WebRootPath,
+                        imageToBeDeleted.ImageUrl.TrimStart('\\'));
+
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+
+                _unityOfWork.ProductImage.Remove(imageToBeDeleted);
+                _unityOfWork.Save();
+
+                TempData["success"] = "Deleted successfully";
+            }
+            return RedirectToAction(nameof(Upsert), new {id = productId});
+        }
+
+
         #region API CALLS
 
         [HttpGet]
@@ -210,14 +238,22 @@ namespace CourseWeb.Areas.Admin.Controllers
             {
                 return Json(new { success = false, message = "Error while deleting" });
             }
-            //var oldImagePath =
-            //    Path.Combine(_webHostEnvironment.WebRootPath,
-            //    productToBeDeleted.ImageUrl.TrimStart('\\'));
+            
 
-            //if (System.IO.File.Exists(oldImagePath))
-            //{
-            //    System.IO.File.Delete(oldImagePath);
-            //}
+            string productPath = @"images\products\product-" + id;
+            string finalPath = Path.Combine(_webHostEnvironment.WebRootPath, productPath);
+
+            if (!Directory.Exists(finalPath))
+            {
+
+                //eliminiamo prima tutti i file presenti nella directory e poi eliminiamo la directory
+                string[] filePaths = Directory.GetFiles(finalPath);
+                foreach (string filePath in filePaths)
+                {
+                    System.IO.File.Delete(filePath);
+                }
+                Directory.Delete(finalPath);
+            }
 
             _unityOfWork.Product.Remove(productToBeDeleted);
             _unityOfWork.Save();

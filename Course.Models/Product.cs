@@ -49,7 +49,7 @@ namespace Course.Models
         public Category Category { get; set; }
 
         [ValidateNever]
-        public List<ProductImage> ProductImageList { get; set; }
+        public List<ProductImage> ProductImages { get; set; }
 
 
     }

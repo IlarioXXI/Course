@@ -1,7 +1,7 @@
 ﻿@model ProductVM
 <form method="post" enctype="multipart/form-data">
     <input asp-for="Product.Id" hidden />
-@*     <input asp-for="Product.ImageUrl" hidden />
+    @*     <input asp-for="Product.ImageUrl" hidden />
  *@
     <div class="row">
         <div class="col-10">
@@ -66,7 +66,7 @@
             </div>
             <div class="mb-3 row p-1">
                 <input type="file" name="files" class="form-control" multiple/>
-                <label asp-for="Product.ProductImageList" class="p-0"></label>
+                <label asp-for="Product.ProductImages" class="p-0"></label>
             </div>
 
             <div class="mb-3 row p-1">
@@ -91,8 +91,21 @@
             </div>
         </div>
         <div class="col-2">
-@*             <img src="@Model.Product.ImageUrl" width="100%" style="border-radius:5px; border:1px solid white"/>
- *@        </div>
+            @if (Model.Product.ProductImages != null)
+            {
+                @foreach (var image in Model.Product.ProductImages)
+                {
+                    <div class="border p-1 m-2 text-center">
+                        <img src="@image.ImageUrl" width="100%" style="border-radius:5px; border:1px solid white" />
+                        <a asp-action="DeleteImage" class="btn btn-danger" asp-route-imageId="@image.Id">
+                            <i class="bi bi-trash-fill"></i> Delete
+                        </a>
+                    </div>
+                }
+                
+            }
+                        
+        </div>
     </div>
 </form>
 

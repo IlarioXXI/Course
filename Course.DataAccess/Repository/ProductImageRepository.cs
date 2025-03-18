@@ -21,7 +21,7 @@ namespace Course.DataAccess.Repository
 
         public void Update(ProductImage obj)
         {
-            _db.ProductImage.Update(obj);
+            _db.ProductImages.Update(obj);
         }
     }
 }
